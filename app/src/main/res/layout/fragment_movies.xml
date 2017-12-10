@@ -1,0 +1,54 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:background="#f0f0f0">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="tpdev.upmc.dcinephila.MoviesFragment"
+    >
+
+
+    <TextView
+        android:id="@+id/now_playing_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="À l'affiche"
+        android:textSize="17dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:textColor="#000"
+        />
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/now_playing"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clipToPadding="false"
+        android:scrollbars="vertical"
+        android:layout_marginRight="@dimen/card_margin"/>
+
+    <TextView
+        android:id="@+id/upcoming_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:text="Bientôt en salles"
+        android:textSize="17dp"
+        android:textColor="#000"/>
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/upcoming_movies"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clipToPadding="false"
+        android:scrollbars="vertical"
+        android:layout_marginRight="@dimen/card_margin"/>
+
+</LinearLayout>
+</ScrollView>

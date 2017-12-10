@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "383546831879",
+    "firebase_url": "https://dcinephilia-tpdev.firebaseio.com",
+    "project_id": "dcinephilia-tpdev",
+    "storage_bucket": "dcinephilia-tpdev.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:383546831879:android:86b4ab5689024977",
+        "android_client_info": {
+          "package_name": "tpdev.upmc.dcinephila"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "383546831879-kjd4vfaen3fsgq8rrb57e7k6t2mc4cun.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCkNWO6a07YmgSk7jc7T6KTesFlugI74lE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
