@@ -23,7 +23,7 @@ public class ThemoviedbApiAccess {
 	public static String PERSON_DETAILS_KNOWNFOR = "https://api.themoviedb.org/3/search/person?api_key=7bf8c81d05dcc42e3cc3216950eafc2d&query=";
 
 
-	public static String MULTIPLE_SEARCH = "https://api.themoviedb.org/3/search/multi?api_key=7bf8c81d05dcc42e3cc3216950eafc2d&query=";
+	public static String MULTIPLE_SEARCH = "https://api.themoviedb.org/3/search/multi?api_key=7bf8c81d05dcc42e3cc3216950eafc2d&language=fr&query=";
 
 	public static String ILE_DE_FRANCE_CINEMAS = "https://data.iledefrance.fr/api/records/1.0/search/?dataset=les_salles_de_cinemas_en_ile-de-france&rows=309";
 	
@@ -50,12 +50,17 @@ public class ThemoviedbApiAccess {
 	
 	public static String AllPersonDetailsURL(int id_person)
 	{
-		return PERSON_DETAILS + String.valueOf(id_person) + "?" + TheMovieDbAPIKey; 
+		return PERSON_DETAILS + String.valueOf(id_person) + "?" + TheMovieDbAPIKey ;
 	}
 	
 	public static String AllPersonKnownForURL(String search_query)
 	{
 		return PERSON_DETAILS_KNOWNFOR + search_query; 
+	}
+
+	public static String PersonMovies(int id_person)
+	{
+		return PERSON_DETAILS + String.valueOf(id_person) + "/movie_credits?" + TheMovieDbAPIKey ;
 	}
 		
 	public static String AllMovieDetailsURL(int id_movie)
@@ -70,7 +75,7 @@ public class ThemoviedbApiAccess {
 	
 	public static  String MovieRecommendationsURl(int id_movie)
 	{
-		return MOVIE_DETAILS + String.valueOf(id_movie) + "/recommendations?" + TheMovieDbAPIKey ; 
+		return MOVIE_DETAILS + String.valueOf(id_movie) + "/similar?" + TheMovieDbAPIKey ;
 	}
 	
 	public static  String MoviesByGenre(int id_genre)
@@ -90,7 +95,7 @@ public class ThemoviedbApiAccess {
 	
 	public static  String TvShowRecommendationsURl(int id_tvshow)
 	{
-		return TVSHOW_DETAILS + String.valueOf(id_tvshow) + "/recommendations?" + TheMovieDbAPIKey ; 
+		return TVSHOW_DETAILS + String.valueOf(id_tvshow) + "/similar?" + TheMovieDbAPIKey ;
 	}
 	
 	

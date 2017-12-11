@@ -19,5 +19,6 @@
     <color name="btn_login_bg">#eceef1</color>
     <color name="lbl_name">#333333</color>
     <color name="rating_color">#0094a5</color>
+    <color name="blue_light">#b2ebf2</color>
 
 </resources>

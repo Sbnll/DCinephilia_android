@@ -1,5 +1,7 @@
 package tpdev.upmc.dcinephila.Beans;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -78,5 +80,22 @@ public class Movie {
 
     public void setMovie_rate(String movie_rate) {
         this.movie_rate = movie_rate;
+    }
+
+    public Date getDateTime()
+    {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = null;
+        try {
+
+            date = formatter.parse(this.release_date);
+            System.out.println(date);
+            System.out.println(formatter.format(date));
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return date;
     }
 }

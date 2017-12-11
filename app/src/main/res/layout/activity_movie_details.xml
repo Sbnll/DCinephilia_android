@@ -11,14 +11,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        tools:context="tpdev.upmc.dcinephila.MovieDetailsActivity">
+        tools:context="tpdev.upmc.dcinephila.Activities.MovieDetailsActivity">
 
-        <SurfaceView
-            android:id="@+id/videoView"
+        <com.google.android.youtube.player.YouTubePlayerView
+            android:id="@+id/youtube_view"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_gravity="center" >
-        </SurfaceView>
+            android:layout_height="200dp"/>
 
 
         <LinearLayout
@@ -63,14 +61,14 @@
                     android:textColor="#444"/>
 
                 <TextView
-                    android:id="@+id/date_release"
+                    android:id="@+id/movie_genres"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="14sp"
                     android:textColor="#444"/>
 
                 <TextView
-                    android:id="@+id/movie_genres"
+                    android:id="@+id/date_release"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="14sp"
@@ -97,6 +95,17 @@
             android:layout_marginStart="15dp"
             android:layout_marginEnd="15dp" />
 
+        <me.gujun.android.taggroup.TagGroup
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/tag_group"
+            style="@style/TagGroup"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="15dp"
+            app:atg_borderColor="@color/rating_color"
+            app:atg_textColor="@color/rating_color"/>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -122,13 +131,15 @@
 
             <TextView
                 android:id="@+id/rating_value"
-                android:layout_width="40dp"
-                android:layout_height="wrap_content"
+                android:layout_width="50dp"
+                android:layout_height="30dp"
                 android:background="@drawable/oval"
                 android:gravity="center"
                 />
 
         </LinearLayout>
+
+
 
         <View
             android:layout_width="match_parent"
@@ -195,6 +206,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
+
             <TextView
                 android:id="@+id/images_text"
                 android:layout_width="wrap_content"
@@ -237,7 +249,7 @@
             android:layout_height="wrap_content"
             android:clipToPadding="false"
             android:scrollbars="vertical"
-            android:layout_marginRight="@dimen/card_margin"/>
+            android:layout_marginEnd="@dimen/card_margin"/>
 
 
         <View
@@ -294,6 +306,160 @@
             android:clipToPadding="false"
             android:scrollbars="vertical"
             android:layout_marginRight="@dimen/card_margin"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="10dp"
+            android:layout_gravity="center_vertical"
+            android:background="#ddd"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="85dp"
+            android:orientation="horizontal"
+            android:padding="10dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/box_shadow">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_marginStart="30dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/like_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="J'aime"
+                    android:gravity="center"
+                    android:textSize="12sp"
+                    android:layout_marginBottom="5dp"/>
+
+                <ImageButton
+                    android:id="@+id/like_movie"
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/button_shape"
+                    android:src="@drawable/thumbs_up"
+                    android:padding="8dp"
+                    android:layout_gravity="center_horizontal"
+                    android:scaleType="fitCenter"
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/rate_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Je note"
+                    android:gravity="center"
+                    android:textSize="12sp"
+                    android:layout_marginBottom="5dp"/>
+
+                <ImageButton
+                    android:id="@+id/rate_movie"
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/button_shape"
+                    android:src="@drawable/star"
+                    android:padding="8dp"
+                    android:layout_gravity="center_horizontal"
+                    android:scaleType="fitCenter"
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:layout_marginEnd="30dp">
+
+                <TextView
+                    android:id="@+id/add_list_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Favoris"
+                    android:gravity="center"
+                    android:textSize="12sp"
+                    android:layout_marginBottom="5dp"/>
+
+                <ImageButton
+                    android:id="@+id/add_list"
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/button_shape"
+                    android:src="@drawable/add_favoris"
+                    android:padding="8dp"
+                    android:layout_gravity="center_horizontal"
+                    android:scaleType="fitCenter"
+                    />
+
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="10dp"
+            android:layout_gravity="center_vertical"
+            android:background="#ddd"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+
+            <TextView
+                android:id="@+id/comments_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:text="Commentaires"
+                android:textSize="17sp"
+                android:textColor="#000"/>
+
+            <TextView
+                android:id="@+id/comments_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:text=""
+                android:textSize="17dp"
+                android:layout_marginRight="10dp"
+                android:textColor="#777"/>
+
+            <TextView
+                android:id="@+id/seeComments"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#f0f0f0"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:text="Lire tout ►"
+                android:textSize="14sp"
+                android:gravity="end"
+                android:textColor="@color/rating_color"/>
+
+
+        </LinearLayout>
 
     </LinearLayout>
 </ScrollView>
