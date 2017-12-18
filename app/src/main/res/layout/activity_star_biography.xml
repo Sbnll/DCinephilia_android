@@ -58,7 +58,6 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="ACTOR"
                     android:textColor="@android:color/white"
                     android:layout_gravity="top|left"
                     android:textStyle="bold"
@@ -69,7 +68,6 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="PRODUCER"
                     android:textStyle="bold"
                     android:textColor="@android:color/white"
                     android:layout_gravity="top|left"
@@ -232,6 +230,70 @@
             android:scrollbars="vertical"
             android:layout_marginRight="@dimen/card_margin"
             android:layout_below="@id/filmography"/>
+
+
+        <View
+            android:id="@+id/divider3"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="10dp"
+            android:layout_gravity="center_vertical"
+            android:layout_below="@id/movies_recyclerview"
+            android:background="#ddd"/>
+
+        <LinearLayout
+            android:id="@+id/images_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_below="@id/divider3">
+
+
+            <TextView
+                android:id="@+id/images_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:text="Images"
+                android:textSize="17sp"
+                android:textColor="#000"/>
+
+            <TextView
+                android:id="@+id/images_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:text=""
+                android:textSize="17dp"
+                android:layout_marginRight="10dp"
+                android:textColor="#777"/>
+
+            <TextView
+                android:id="@+id/seeImages"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#f0f0f0"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:text="Voir tout ►"
+                android:textSize="14sp"
+                android:gravity="end"
+                android:textColor="@color/rating_color"/>
+
+
+        </LinearLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/images_recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipToPadding="false"
+            android:scrollbars="vertical"
+            android:layout_below="@id/images_layout"
+            android:layout_marginEnd="@dimen/card_margin"/>
+
 
     </RelativeLayout>
 

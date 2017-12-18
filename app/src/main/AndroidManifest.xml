@@ -27,7 +27,9 @@
         <activity android:name=".Activities.SearchResultsActivity" />
         <activity android:name=".Activities.MovieDetailsActivity" />
         <activity android:name=".Activities.ImagesSliderActivity" />
-        <activity android:name=".Activities.StarBiographyActivity"></activity>
+        <activity android:name=".Activities.StarBiographyActivity" />
+        <activity android:name=".Activities.TvShowsDetailsActivity" />
+        <activity android:name=".Activities.SeasonEpisodesActivity"></activity>
     </application>
 
 </manifest>

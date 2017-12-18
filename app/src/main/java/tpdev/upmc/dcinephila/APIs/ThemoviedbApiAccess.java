@@ -18,8 +18,10 @@ public class ThemoviedbApiAccess {
 	public static String UPCOMING_MOVIES = "https://api.themoviedb.org/3/movie/upcoming?api_key=7bf8c81d05dcc42e3cc3216950eafc2d&language=fr";
 	public static String MOST_POPULAR_MOVIES = "https://api.themoviedb.org/3/movie/popular?api_key=7bf8c81d05dcc42e3cc3216950eafc2d";
 	public static String TOP_RATED_MOVIES = "https://api.themoviedb.org/3/movie/top_rated?api_key=7bf8c81d05dcc42e3cc3216950eafc2d";
-	public static String MOST_POPULAR_TVSHOWS = "https://api.themoviedb.org/3/discover/tv?sort_by=popularity.desc&api_key=7bf8c81d05dcc42e3cc3216950eafc2d";
-	public static String MOVIES_BY_GENRE = "https://api.themoviedb.org/3/genre/"; 
+	public static String MOST_POPULAR_TVSHOWS = "https://api.themoviedb.org/3/tv/popular?sort_by=vote_average.desc&api_key=7bf8c81d05dcc42e3cc3216950eafc2d";
+	public static String TOP_RATED_TVSHOWS = "https://api.themoviedb.org/3/tv/top_rated?api_key=7bf8c81d05dcc42e3cc3216950eafc2d&sort_by=vote_average.desc";
+	public static String ON_THE_AIR_TVSHOWS = "https://api.themoviedb.org/3/tv/on_the_air?api_key=7bf8c81d05dcc42e3cc3216950eafc2d";
+	public static String MOVIES_BY_GENRE = "https://api.themoviedb.org/3/genre/";
 	public static String PERSON_DETAILS_KNOWNFOR = "https://api.themoviedb.org/3/search/person?api_key=7bf8c81d05dcc42e3cc3216950eafc2d&query=";
 
 
@@ -62,6 +64,17 @@ public class ThemoviedbApiAccess {
 	{
 		return PERSON_DETAILS + String.valueOf(id_person) + "/movie_credits?" + TheMovieDbAPIKey ;
 	}
+
+	public static String PersonImages(int id_person)
+	{
+		return PERSON_DETAILS + String.valueOf(id_person) + "/images?" + TheMovieDbAPIKey ;
+	}
+
+	public static String PersonImages(String person_name)
+	{
+		return "http://www.theimdbapi.org/api/find/person?name=" + person_name ;
+	}
+
 		
 	public static String AllMovieDetailsURL(int id_movie)
 	{
@@ -71,6 +84,11 @@ public class ThemoviedbApiAccess {
 	public static String MovieBackdrops(int id_movie)
 	{
 		return MOVIE_DETAILS + String.valueOf(id_movie) + "/images?" + TheMovieDbAPIKey ;
+	}
+
+	public static String TvShowsBackdrops(int id_show)
+	{
+		return TVSHOW_DETAILS+ String.valueOf(id_show) + "/images?" + TheMovieDbAPIKey ;
 	}
 	
 	public static  String MovieRecommendationsURl(int id_movie)
@@ -90,10 +108,10 @@ public class ThemoviedbApiAccess {
 	
 	public static String AllTvShowDetailsURL(int id_tvshow)
 	{
-		return TVSHOW_DETAILS + String.valueOf(id_tvshow) + "?append_to_response=credits&" + TheMovieDbAPIKey ;
+		return TVSHOW_DETAILS + String.valueOf(id_tvshow) + "?append_to_response=seasons,credits&language=fr&" + TheMovieDbAPIKey ;
 	}
 	
-	public static  String TvShowRecommendationsURl(int id_tvshow)
+	public static  String TvShowSimilarURl(int id_tvshow)
 	{
 		return TVSHOW_DETAILS + String.valueOf(id_tvshow) + "/similar?" + TheMovieDbAPIKey ;
 	}
@@ -102,6 +120,11 @@ public class ThemoviedbApiAccess {
 	public static String GetTvShowTrailer(int id_tvshow)
 	{
 		return TVSHOW_DETAILS + String.valueOf(id_tvshow) + "/videos?&" + TheMovieDbAPIKey ;
+	}
+
+	public static  String GetSeasonEpisodes(int id_show, int season_number)
+	{
+		return TVSHOW_DETAILS + String.valueOf(id_show) + "/season/" + String.valueOf(season_number) +"?language=fr&" + TheMovieDbAPIKey ;
 	}
 	
 	public static String GetMultipleSearchResult(String search_query)

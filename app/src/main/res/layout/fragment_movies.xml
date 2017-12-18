@@ -31,6 +31,13 @@
         android:scrollbars="vertical"
         android:layout_marginRight="@dimen/card_margin"/>
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="10dp"
+            android:layout_gravity="center_vertical"
+            android:background="#ddd"/>
+
     <TextView
         android:id="@+id/upcoming_text"
         android:layout_width="match_parent"
@@ -49,6 +56,33 @@
         android:clipToPadding="false"
         android:scrollbars="vertical"
         android:layout_marginRight="@dimen/card_margin"/>
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="10dp"
+            android:layout_gravity="center_vertical"
+            android:background="#ddd"/>
+
+        <TextView
+            android:id="@+id/top_rated_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:text="Films les mieux notés"
+            android:textSize="17dp"
+            android:textColor="#000"/>
+
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/top_rated_movies"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipToPadding="false"
+            android:scrollbars="vertical"
+            android:layout_marginRight="@dimen/card_margin"/>
 
 </LinearLayout>
 </ScrollView>

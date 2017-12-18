@@ -1,16 +1,62 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="tpdev.upmc.dcinephila.Fragments.TvshowsFragment">
+    android:fillViewport="true"
+    android:background="#f0f0f0">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Séries"
-        android:textSize="40dp"
-        android:textStyle="bold"
-        android:layout_centerInParent="true"/>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context="tpdev.upmc.dcinephila.Fragments.TvshowsFragment"
+        >
 
-</FrameLayout>
+
+        <TextView
+            android:id="@+id/now_playing_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="En diffusion"
+            android:textSize="17dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:textColor="#000"
+            />
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/now_playing"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipToPadding="false"
+            android:scrollbars="vertical"
+            android:layout_marginRight="@dimen/card_margin"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="10dp"
+            android:layout_gravity="center_vertical"
+            android:background="#ddd"/>
+
+
+        <TextView
+            android:id="@+id/top_rated_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:text="Les séries les mieux notés"
+            android:textSize="17dp"
+            android:textColor="#000"/>
+
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/top_rated_shows"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipToPadding="false"
+            android:scrollbars="vertical"
+            android:layout_marginRight="@dimen/card_margin"/>
+
+    </LinearLayout>
+</ScrollView>

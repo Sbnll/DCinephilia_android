@@ -43,10 +43,10 @@ import tpdev.upmc.dcinephila.DesignClasses.RecyclerTouchListener;
 
 public class MoviesFragment extends Fragment{
 
-    private TextView now_playong_text, upcoming_text;
-    private RecyclerView now_playing_recyclerView, upcoming_movies_recyclerView;
-    private MoviesAdapter now_playing_adapter, upcoming_movies_adapter;
-    private ArrayList<Movie> now_playing_movies_list, upcoming_movies_list;
+    private TextView now_playing_text, upcoming_text, top_rated_text;
+    private RecyclerView now_playing_recyclerView, upcoming_movies_recyclerView, top_rated_movies_recyclerView;
+    private MoviesAdapter now_playing_adapter, upcoming_movies_adapter, top_rated_movies_adapter;
+    private ArrayList<Movie> now_playing_movies_list, upcoming_movies_list, top_rated_movies_list;
     private static String TAG = MainActivity.class.getSimpleName();
 
 
@@ -66,20 +66,25 @@ public class MoviesFragment extends Fragment{
         View view = inflater.inflate(R.layout.fragment_movies, container, false);
         Typeface face= Typeface.createFromAsset(getContext().getAssets(), "font/Comfortaa-Bold.ttf");
 
-        now_playong_text = (TextView) view.findViewById(R.id.now_playing_text);
+        now_playing_text = (TextView) view.findViewById(R.id.now_playing_text);
         upcoming_text = (TextView) view.findViewById(R.id.upcoming_text);
+        top_rated_text = (TextView) view.findViewById(R.id.top_rated_text);
 
-        now_playong_text.setTypeface(face);
+        now_playing_text.setTypeface(face);
         upcoming_text.setTypeface(face);
+        top_rated_text.setTypeface(face);
 
         now_playing_recyclerView = (RecyclerView) view.findViewById(R.id.now_playing);
         upcoming_movies_recyclerView = (RecyclerView) view.findViewById(R.id.upcoming_movies);
+        top_rated_movies_recyclerView = (RecyclerView) view.findViewById(R.id.top_rated_movies);
 
         now_playing_movies_list = new ArrayList<Movie>();
         upcoming_movies_list = new ArrayList<Movie>();
+        top_rated_movies_list = new ArrayList<Movie>();
 
         now_playing_adapter = new MoviesAdapter(getContext(), now_playing_movies_list);
         upcoming_movies_adapter = new MoviesAdapter(getContext(), upcoming_movies_list);
+        top_rated_movies_adapter = new MoviesAdapter(getContext(), top_rated_movies_list);
 
         RecyclerView.LayoutManager NowPlayingLayoutManager =
                 new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
@@ -93,6 +98,11 @@ public class MoviesFragment extends Fragment{
         upcoming_movies_recyclerView.setItemAnimator(new DefaultItemAnimator());
         upcoming_movies_recyclerView.setAdapter(upcoming_movies_adapter);
 
+        RecyclerView.LayoutManager TopRatedLayoutManager =
+                new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        top_rated_movies_recyclerView.setLayoutManager(TopRatedLayoutManager);
+        top_rated_movies_recyclerView.setItemAnimator(new DefaultItemAnimator());
+        top_rated_movies_recyclerView.setAdapter(top_rated_movies_adapter);
 
         now_playing_recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getContext(), now_playing_recyclerView, new RecyclerTouchListener.ClickListener() {
             @Override
@@ -125,7 +135,20 @@ public class MoviesFragment extends Fragment{
             }
         }));
 
+        top_rated_movies_recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getContext(), top_rated_movies_recyclerView, new RecyclerTouchListener.ClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                Movie movie = top_rated_movies_list.get(position);
+                Intent intent = new Intent(getContext(), MovieDetailsActivity.class);
+                intent.putExtra("movie_id", movie.getMovie_id());
+                startActivity(intent);
+            }
 
+            @Override
+            public void onLongClick(View view, int position) {
+
+            }
+        }));
 
         DisplayMovies();
         return view;
@@ -170,7 +193,7 @@ public class MoviesFragment extends Fragment{
                                 }
                             }
                         }
-                        else
+                        else if(datetime.before(today))
                         {
                             if(!IsListContainsElement(movie_id,moviesList))
                             {
@@ -180,7 +203,8 @@ public class MoviesFragment extends Fragment{
                         }
 
                     }
-
+                    String url = ThemoviedbApiAccess.NOW_PALYING_MOVIES;
+                    if (urlJsonObj.equals(url) || urlJsonObj.equals(url+"&page=2"))
                     Collections.sort(moviesList, new Comparator<Movie>() {
                         public int compare(Movie o1, Movie o2) {
                             if (o1.getDateTime() == null || o2.getDateTime() == null)
@@ -238,7 +262,8 @@ public class MoviesFragment extends Fragment{
         makeJsonObjectRequest(upcoming_movies_list, upcoming_movies_adapter, ThemoviedbApiAccess.UPCOMING_MOVIES+"&page=2");
         makeJsonObjectRequest(upcoming_movies_list, upcoming_movies_adapter, ThemoviedbApiAccess.UPCOMING_MOVIES+"&page=3");
 
-
+        makeJsonObjectRequest(top_rated_movies_list, top_rated_movies_adapter, ThemoviedbApiAccess.TOP_RATED_MOVIES);
+        makeJsonObjectRequest(top_rated_movies_list, top_rated_movies_adapter, ThemoviedbApiAccess.TOP_RATED_MOVIES+"&page=2");
     }
 
 }

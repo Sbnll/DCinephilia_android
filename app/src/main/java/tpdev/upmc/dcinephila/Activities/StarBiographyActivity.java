@@ -7,9 +7,7 @@ import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.Html;
 import android.text.SpannableStringBuilder;
-import android.text.Spanned;
 import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.View;
@@ -35,8 +33,8 @@ import java.util.Comparator;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import tpdev.upmc.dcinephila.APIs.ThemoviedbApiAccess;
+import tpdev.upmc.dcinephila.Adapaters.ImageActorAdapter;
 import tpdev.upmc.dcinephila.Adapaters.MoviesAdapter;
-import tpdev.upmc.dcinephila.Beans.Actor;
 import tpdev.upmc.dcinephila.Beans.Movie;
 import tpdev.upmc.dcinephila.DesignClasses.AppController;
 import tpdev.upmc.dcinephila.DesignClasses.MySpannable;
@@ -46,11 +44,13 @@ import tpdev.upmc.dcinephila.R;
 public class StarBiographyActivity extends AppCompatActivity {
 
     private TextView actor_name, birthday_text, birthday_place_text, birthday_value, birthday_place_value,
-            biopgraphy, movies_text, movies_number;
-    private RecyclerView moviesRecycerView;
+            biopgraphy, movies_text, movies_number, images_text, images_number, seeImageBtn;
+    private RecyclerView moviesRecycerView, imageRecyclerView;
     private CircleImageView actor_avatar;
     private KenBurnsView background;
     private ArrayList<Movie> moviesList;
+    private ArrayList<String> imagesList;
+    private ImageActorAdapter imageMovieAdapter;
     private MoviesAdapter moviesAdapter;
     private static String TAG = StarBiographyActivity.class.getSimpleName();
 
@@ -61,6 +61,7 @@ public class StarBiographyActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         final int person_id = intent.getIntExtra("person_id",0);
+        final String person_name = intent.getStringExtra("person_name");
         Typeface face= Typeface.createFromAsset(getApplicationContext().getAssets(), "font/Comfortaa-Light.ttf");
         Typeface face_bold= Typeface.createFromAsset(getApplicationContext().getAssets(), "font/Comfortaa-Bold.ttf");
 
@@ -74,16 +75,22 @@ public class StarBiographyActivity extends AppCompatActivity {
         background = (KenBurnsView) findViewById(R.id.background);
         movies_text = (TextView) findViewById(R.id.movies_text);
         movies_number = (TextView) findViewById(R.id.movies_number);
+        images_text = (TextView) findViewById(R.id.images_text);
+        images_number = (TextView) findViewById(R.id.images_number);
+        imageRecyclerView = (RecyclerView) findViewById(R.id.images_recyclerview);
         moviesRecycerView = (RecyclerView) findViewById(R.id.movies_recyclerview);
+        seeImageBtn = (TextView) findViewById(R.id.seeImages);
 
         actor_name.setTypeface(face_bold);
         birthday_text.setTypeface(face_bold);
         birthday_place_text.setTypeface(face_bold);
         movies_text.setTypeface(face_bold);
+        images_text.setTypeface(face_bold);
         birthday_value.setTypeface(face);
         birthday_place_value.setTypeface(face);
         biopgraphy.setTypeface(face);
         movies_number.setTypeface(face);
+        images_number.setTypeface(face);
 
         moviesList = new ArrayList<>();
         moviesAdapter = new MoviesAdapter(this, moviesList);
@@ -107,8 +114,27 @@ public class StarBiographyActivity extends AppCompatActivity {
             }
         }));
 
+        imagesList = new ArrayList<>();
+        imageMovieAdapter = new ImageActorAdapter(this, imagesList);
+        RecyclerView.LayoutManager ImagesLayoutManager =
+                new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false);
+        imageRecyclerView.setLayoutManager(ImagesLayoutManager);
+        imageRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        imageRecyclerView.setAdapter(imageMovieAdapter);
+
+        seeImageBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(StarBiographyActivity.this, ImagesSliderActivity.class);
+                intent.putExtra("movie_id", person_id);
+                intent.putExtra("movie_title",person_name);
+                startActivity(intent);
+            }
+        });
+
         GetStarDetails(ThemoviedbApiAccess.AllPersonDetailsURL(person_id));
         GetActorMovies(ThemoviedbApiAccess.PersonMovies(person_id));
+        GetActorImages(ThemoviedbApiAccess.PersonImages(person_id));
 
     }
 
@@ -171,12 +197,12 @@ public class StarBiographyActivity extends AppCompatActivity {
                         tv.setLayoutParams(tv.getLayoutParams());
                         tv.setText(tv.getTag().toString(), TextView.BufferType.SPANNABLE);
                         tv.invalidate();
-                        makeTextViewResizable(tv, -1, "View Less", false);
+                        makeTextViewResizable(tv, -1, "Voir moins", false);
                     } else {
                         tv.setLayoutParams(tv.getLayoutParams());
                         tv.setText(tv.getTag().toString(), TextView.BufferType.SPANNABLE);
                         tv.invalidate();
-                        makeTextViewResizable(tv, 6, "View More", true);
+                        makeTextViewResizable(tv, 6, "Voir plus", true);
                     }
                 }
             }, str.indexOf(spanableText), str.indexOf(spanableText) + spanableText.length(), 0);
@@ -201,7 +227,7 @@ public class StarBiographyActivity extends AppCompatActivity {
                     if (!response.getString("place_of_birth").equals("null")) birthday_place_value.setText(response.getString("place_of_birth"));
                     biopgraphy.setText(response.getString("biography"));
                     Glide.with(getApplicationContext()).load("https://image.tmdb.org/t/p/w500" + response.getString("profile_path")).into(actor_avatar);
-                    makeTextViewResizable(biopgraphy, 6, "View More", true);
+                    makeTextViewResizable(biopgraphy, 6, "Voir plus", true);
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -267,6 +293,48 @@ public class StarBiographyActivity extends AppCompatActivity {
                     moviesAdapter.notifyDataSetChanged();
                     movies_number.setText("•  " +String.valueOf(moviesList.size()));
 
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    Toast.makeText(getApplicationContext(),
+                            "Error: " + e.getMessage(),
+                            Toast.LENGTH_LONG).show();
+                }
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                VolleyLog.d(TAG, "Error: " + error.getMessage());
+                Toast.makeText(getApplicationContext(),
+                        error.getMessage(), Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+        AppController.getInstance().addToRequestQueue(jsonObjReq);
+    }
+
+    private void GetActorImages(final String urlJsonObj) {
+
+        JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.GET,
+                urlJsonObj, null, new Response.Listener<JSONObject>() {
+
+            @Override
+            public void onResponse(JSONObject response) {
+                Log.d(TAG, response.toString());
+
+                try {
+
+                    JSONArray actor_images = (JSONArray) response.getJSONArray("profiles");
+                    for (int i=0; i<actor_images.length(); i++)
+                    {
+                        JSONObject image_json = (JSONObject) actor_images.get(i);
+                        String image_url = "https://image.tmdb.org/t/p/w780" + image_json.getString("file_path");
+
+                        imagesList.add(image_url);
+                        imageMovieAdapter.notifyDataSetChanged();
+                    }
+                    images_number.setText("•  " +String.valueOf(imagesList.size()));
                 } catch (JSONException e) {
                     e.printStackTrace();
                     Toast.makeText(getApplicationContext(),

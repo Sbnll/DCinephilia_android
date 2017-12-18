@@ -39,8 +39,8 @@ public class ImagesSliderActivity extends AppCompatActivity implements BaseSlide
         setContentView(R.layout.activity_images_slider);
 
         Intent intent = getIntent();
-        int movie_id = intent.getIntExtra("movie_id",0);
-        String movie_title = intent.getStringExtra("movie_title").toString();
+        int movie_id = intent.getIntExtra("element_id",0);
+        String movie_title = intent.getStringExtra("element_title").toString();
         sliderLayout = (SliderLayout)findViewById(R.id.slider);
         imagesList= new ArrayList<String>();
 
