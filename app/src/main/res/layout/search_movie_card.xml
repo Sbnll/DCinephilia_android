@@ -19,7 +19,7 @@
             <ImageView
                 android:id="@+id/poster"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/album_cover_height"
+                android:layout_height="190dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:clickable="true"
                 android:scaleType="fitXY" />

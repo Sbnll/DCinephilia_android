@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    >
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <TextView
+            android:layout_margin="10dp"
+            android:id="@+id/addlist_text"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:text="Choisir la liste : "
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_weight="0.7"/>
+
+        <android.support.design.widget.TextInputLayout
+            android:theme="@style/MyTextInputLayout"
+            android:id="@+id/input_layout_prenom"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1.5">
+
+
+            <Spinner
+                android:id="@+id/spinner2"
+                android:layout_marginLeft="50dp"
+                android:spinnerMode="dialog"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+
+        </android.support.design.widget.TextInputLayout>
+    </LinearLayout>
+
+
+</android.support.design.widget.CoordinatorLayout>
